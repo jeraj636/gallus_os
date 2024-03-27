@@ -6,7 +6,7 @@
 	mov al, 'R'
 	call izpisi
 		
-	;call nalozi_kernel		
+	call nalozi_kernel		
 	
 	push 'S' ;test ali stack deluje
 	pop ax
@@ -75,11 +75,6 @@ pojdi_v_pm:
 	or eax, 0x1
 	mov cr0, eax
 
-	mov edi, 0xb8000
-	mov ah, 0x0f
-	mov al, 'P'
-	mov [edi], ax	
-
 	jmp KODA_SEG:incializiraj_pm
 [bits 32]
 incializiraj_pm:
@@ -96,7 +91,13 @@ incializiraj_pm:
 	mov al, 'G'
 	mov ah, 0x0f
 	mov [edi], ax	
+	jmp KODA_SEG:0x7e00
 	jmp $
 
 times 510 - ($-$$) db 0
 dw 0xaa55
+mov edi, 0xb8000
+mov al, 'A'
+mov ah, 0xf0
+mov [edi], ax
+jmp $
