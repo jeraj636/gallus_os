@@ -1,0 +1,4 @@
+mov ah, 0xe
+mov al, 'P'
+int 0x10
+jmp $

@@ -1,5 +1,8 @@
+global _start
+
 [bits 16]
-section .boot
+_start:
+zacetek:
 ; Nastavljanje  globalnega zamika
 mov ax, 0x7c0
 mov ds, ax
@@ -117,15 +120,10 @@ init_pm:
 ;int 0x10 
 
 ; Neskončna zanka
-jmp $
+;jmp $
 
 ; preostanek kode za zapolni s ničlami
 times 510 - ($ - $$) db 0
 
 ; Magična številka
 dw 0xaa55
-mov ah, 0xe
-mov al, 'H'
-int 0x10
-jmp disk_konec 
-jmp $
