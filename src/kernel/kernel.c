@@ -4,6 +4,7 @@
 int kmain()
 {
 	vga_inicializiraj_terminal();
+	vga_izpisi_niz("Pozdravljen svet!\nTo je Gallus OS!");
 	while(1);
 }
 

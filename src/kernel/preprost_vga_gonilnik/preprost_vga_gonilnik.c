@@ -33,7 +33,7 @@ void vga_izpisi_barvni_znak(char c, uint8_t barvna_kombinacija, size_t x, size_t
 
 void vga_izpisi_znak(char c)
 {
-	vga_izpisi_barvni_znak(c, terminal_barvna_kombinacija, terminal_vrstica, terminal_stolpec);
+	vga_izpisi_barvni_znak(c, terminal_barvna_kombinacija, terminal_stolpec, terminal_vrstica);
 	if(++terminal_stolpec == VGA_DOLZINA)
 	{
 		terminal_stolpec = 0;
