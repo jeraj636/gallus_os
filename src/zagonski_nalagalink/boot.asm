@@ -96,8 +96,3 @@ incializiraj_pm:
 
 times 510 - ($-$$) db 0
 dw 0xaa55
-mov edi, 0xb8000
-mov al, 'A'
-mov ah, 0xf0
-mov [edi], ax
-jmp $
