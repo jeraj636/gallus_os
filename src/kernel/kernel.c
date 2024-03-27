@@ -1,13 +1,9 @@
 #include <stdint.h>
-
+#include "preprost_vga_gonilnik/preprost_vga_gonilnik.h"
 
 int kmain()
 {
-	uint16_t* buffer = (uint16_t *)0xB8000;
-	uint16_t crka= 0x0f00;
-	crka |= 'K';
-	int j,i,k;
-	*buffer = crka;
+	vga_inicializiraj_terminal();
 	while(1);
 }
 
