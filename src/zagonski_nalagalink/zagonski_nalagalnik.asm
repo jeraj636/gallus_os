@@ -8,7 +8,7 @@
 	
 	mov al, 0x02
 	mov bx, 0x7e00		
-	call nalozi_kernel ;funkcija ki naloži sektorje  iz diska v RAM		
+	call nalozi_disk ;funkcija ki naloži sektorje  iz diska v RAM		
 	
 	push 'S' ;test ali stack deluje
 	pop ax
@@ -25,14 +25,14 @@ izpisi:
 	int 0x10
 	ret
 ; parameter al (število sketorjev) bx (naslov pisanja)
-nalozi_kernel:
+nalozi_disk:
 	pusha
 	push dx
 	
-	mov ah, 0x02
-	mov ch, 0x00
-	mov cl, 0x02
-	mov dh, 0x00
+	mov ah, 0x02 ; način za branje
+	mov ch, 0x00 ;
+	mov cl, 0x02 ; kateri sektor
+	mov dh, 0x00 ; head number ??
 	int 0x13
 
 	pop dx
