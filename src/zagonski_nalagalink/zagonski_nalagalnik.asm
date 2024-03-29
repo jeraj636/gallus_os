@@ -3,18 +3,19 @@
 	mov bp, 0x9000; stack pointer
 	mov sp, bp
 
-	mov al, 'R'
+	mov al, 'R' ;test ali izpis deluje
 	call izpisi
-		
-	call nalozi_kernel		
+	
+	mov al, 0x02
+	mov bx, 0x7e00		
+	call nalozi_kernel ;funkcija ki naloži sektorje  iz diska v RAM		
 	
 	push 'S' ;test ali stack deluje
 	pop ax
 	call izpisi
 
 	
-	
-	call pojdi_v_pm
+	call pojdi_v_pm ; funkcija ki nalozi protected mode
 
 	jmp $; neskoncna zanka
 
@@ -23,17 +24,15 @@ izpisi:
 	mov ah, 0xe
 	int 0x10
 	ret
-
+; parameter al (število sketorjev) bx (naslov pisanja)
 nalozi_kernel:
 	pusha
 	push dx
 	
 	mov ah, 0x02
-	mov al, 0x02
 	mov ch, 0x00
 	mov cl, 0x02
 	mov dh, 0x00
-	mov bx, 0x7e00
 	int 0x13
 
 	pop dx
