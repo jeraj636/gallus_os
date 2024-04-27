@@ -15,8 +15,8 @@ void vga_inicializiraj_terminal(void)
 	terminal_barvna_kombinacija = vga_barvna_kombinacija(VGA_BARVA_BELA, VGA_BARVA_CRNA);
 	terminal_medpomnilnik = (uint16_t*)0xb8000;
 
-	for(int i = 0; i < VGA_VISINA; i++)
-		for(int j = 0; j < VGA_DOLZINA; j++)
+	for(size_t i = 0; i < VGA_VISINA; i++)
+		for(size_t j = 0; j < VGA_DOLZINA; j++)
 			terminal_medpomnilnik[i * VGA_DOLZINA + j] = vga_barvni_znak(terminal_barvna_kombinacija, ' ');
 
 }

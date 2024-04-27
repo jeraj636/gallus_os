@@ -13,9 +13,12 @@ std::vector<std::string> pocisti;
 std::string CC = "i686-elf-gcc -std=gnu99 -ffreestanding -O2 -Wall -Wextra";
 std::string S = "i686-elf-as ";
 std::string LD = "i686-elf-gcc -ffreestanding -O2 -nostdlib -lgcc ";
+
 std::string LINKER = "src/grub_zagon/grub_linker.ld";
 std::string GRUB = "src/grub_zagon/grub.s";
-std::string PROJEKT = "gallus_os";
+std::string PROJEKT = "build/gallus_os";
+
+
 int main()
 {
 	for(int i=0;i<kernel_c.size();i++)
@@ -62,5 +65,10 @@ int main()
 	ukaz += "o";
 	std::cout<<ukaz<<"\n";
 	std::system(ukaz.c_str());
+	
+	for(int i=0;i<pocisti.size();i++)
+	{
+		std::remove(pocisti[i].c_str());
+	}
 
 }
