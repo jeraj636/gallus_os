@@ -17,13 +17,15 @@ std::vector <std::string> kernel_c =
 std::string linker_ld = "src/grub_zagon/grub_linker.ld ";
 std::string grub_s = "src/grub_zagon/grub.s ";
 std::string projekt = "build/gallus_os";
+std::string mbr_boot = "src/zagonski_nalagalink/zagonski_nalagalnik.asm";
+std::string vstop_v_kernel_mbr = "src/zagonski_nalagalink/vstop_v_kernel.asm";
 
 std::vector<std::string> odvecne_dat;
 
 std::string cc = "i686-elf-gcc -std=gnu99 -ffreestanding -O2 -Wall -Wextra ";
 std::string s = "i686-elf-as ";
 std::string ld = "i686-elf-gcc -ffreestanding -O2 -nostdlib -lgcc ";
-
+std::string nasm = "nasm ";
 void naredi_kernel()
 {
 	for(int i = 0; i < kernel_c.size(); i++)
@@ -69,6 +71,53 @@ void link_grub()
 	std::system(ukaz.c_str());
 }
 
+void naredi_mbr()
+{
+	std::string izhodna_dat = mbr_boot;
+	izhodna_dat.pop_back();
+	izhodna_dat.pop_back();
+	izhodna_dat.pop_back();
+	izhodna_dat += "bin";
+	std::string ukaz = nasm + "-f bin " + mbr_boot +" -o " + izhodna_dat;
+	std::cout<<mbr_boot<<" > "<<izhodna_dat<<"\n";
+	std::system(ukaz.c_str());
+	odvecne_dat.push_back(izhodna_dat);	
+
+	izhodna_dat = vstop_v_kernel_mbr;
+	izhodna_dat.pop_back();
+	izhodna_dat.pop_back();
+	izhodna_dat.pop_back();
+	izhodna_dat += "o";
+	ukaz = nasm + "-f elf " + vstop_v_kernel_mbr + " -o " + izhodna_dat;
+	odvecne_dat.push_back(izhodna_dat);
+	std::cout<<vstop_v_kernel_mbr<<" > "<<izhodna_dat<<"\n";
+	std::system(ukaz.c_str());
+
+	
+	ukaz = "i686-elf-ld -o " + projekt + "1_2_mbr.bin" + " -Ttext " + "0x7e00 " + vstop_v_kernel_mbr;
+	ukaz.pop_back();	
+	ukaz.pop_back();	
+	ukaz.pop_back();	
+	ukaz += "o";
+	odvecne_dat.push_back(projekt + "1_2_mbr.bin");
+	for(int i = 0; i < kernel_c.size(); i++)
+	{
+		ukaz += " " + kernel_c[i];
+		ukaz.pop_back();
+		ukaz += "o";
+	}
+	ukaz += " --oformat binary";
+	std::system(ukaz.c_str());
+	
+	ukaz = "cat " + mbr_boot;
+	ukaz.pop_back();
+	ukaz.pop_back();
+	ukaz.pop_back();
+	ukaz += (("bin " + projekt) + "1_2_mbr.bin > ") + projekt + "_mbr.bin";
+	std::system(ukaz.c_str());
+
+}
+
 void pocisti()
 {
 	for(int i=0;i<odvecne_dat.size();i++)
@@ -83,5 +132,6 @@ int main()
 	naredi_kernel();
 	multiboot();
 	link_grub();
+	naredi_mbr();
 	pocisti();
 }

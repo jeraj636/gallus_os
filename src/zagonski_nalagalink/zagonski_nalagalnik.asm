@@ -6,7 +6,7 @@
 	mov al, 'R' ;test ali izpis deluje
 	call izpisi
 	
-	mov al, 0x02
+	mov al, 0x0a
 	mov bx, 0x7e00		
 	call nalozi_disk ;funkcija ki naloži sektorje  iz diska v RAM		
 	
