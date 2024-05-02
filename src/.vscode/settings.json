@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.wmls": "javascriptlite",
+        "stdbool.h": "c",
+        "gdt.h": "c"
+    }
+}

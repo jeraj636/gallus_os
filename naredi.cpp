@@ -11,7 +11,8 @@ std::vector <std::string> kernel_c =
 	"src/kernel/kernel.c",
 	"src/kernel/preprost_vga_gonilnik/preprost_vga_gonilnik.c",
 	"src/kernel/c_lib/string.c",
-	"src/kernel/c_lib/stdio.c"
+	"src/kernel/c_lib/stdio.c",
+	"src/kernel/gdt/gdt.c"
 };
 
 std::string linker_ld = "src/grub_zagon/grub_linker.ld ";

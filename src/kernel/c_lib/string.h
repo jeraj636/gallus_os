@@ -7,4 +7,5 @@
 
 size_t strlen(const char *niz);
 void strcat(char *niz1, const char *niz2);
+void memcpy(void *dest, void *src, size_t vel);
 #endif

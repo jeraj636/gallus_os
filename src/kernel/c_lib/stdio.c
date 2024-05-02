@@ -4,7 +4,8 @@
 int obrni_int(int st)
 {
     bool je_neg;
-
+    if (st == 0)
+        return 0;
     if (st < 0)
     {
         je_neg = true;
@@ -22,7 +23,42 @@ int obrni_int(int st)
     }
     return (je_neg) ? t / -10 : t / 10;
 }
+void daj_int_v_buffer(char *buffer, int o_st, size_t *dol)
+{
+    int st = obrni_int(o_st);
+    int st_nul = 0;
+    if (o_st != 0)
+        while (o_st % 10 == 0)
+        {
+            st_nul++;
+            o_st /= 10;
+        }
 
+    if (st == 0)
+    {
+        buffer[*dol] = '0';
+        buffer[++(*dol)] = '\0';
+    }
+    if (st < 0)
+    {
+        buffer[*dol] = '-';
+        buffer[++(*dol)] = '\0';
+        st *= -1;
+    }
+    while (st > 0)
+    {
+        char c = st % 10;
+        st /= 10;
+        c += '0';
+        buffer[*dol] = c;
+        buffer[++(*dol)] = '\0';
+    }
+    for (int i = 0; i < st_nul; i++)
+    {
+        buffer[*dol] = '0';
+        buffer[++(*dol)] = '\0';
+    }
+}
 void printf(const char *niz, ...)
 {
     va_list argumenti;
@@ -37,21 +73,8 @@ void printf(const char *niz, ...)
             {
             case 'i':
             case 'd':
-                int st = obrni_int(va_arg(argumenti, int));
-                if (st < 0)
-                {
-                    izpis[dol] = '-';
-                    izpis[++dol] = '\0';
-                    st *= -1;
-                }
-                while (st > 0)
-                {
-                    char c = st % 10;
-                    st /= 10;
-                    c += '0';
-                    izpis[dol] = c;
-                    izpis[++dol] = '\0';
-                }
+                int o_st = va_arg(argumenti, int);
+                daj_int_v_buffer(izpis, o_st, &dol);
                 break;
             }
         else

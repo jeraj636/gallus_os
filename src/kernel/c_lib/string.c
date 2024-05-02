@@ -15,3 +15,11 @@ void strcat(char *niz1, const char *niz2)
         niz1[i + dol] = niz2[i];
     niz1[dol + strlen(niz2)] = '\0';
 }
+
+void memcpy(void *dest, void *src, size_t vel)
+{
+    for (size_t i = 0; i < vel; i++)
+    {
+        ((char *)dest)[i] = ((char *)src)[1];
+    }
+}
