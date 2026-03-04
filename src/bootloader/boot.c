@@ -222,6 +222,17 @@ void handle_boot(EFI_SYSTEM_TABLE *system_table)
 
     Memmap map;
     get_memmap(&map);
+    UINT8 *ptr = (UINT8 *)map.efi_memory_map;
+    UINTN map_end = (UINTN)map.efi_memory_map + map.efi_memory_map_size;
 
+    while ((UINTN)ptr < map_end)
+    {
+        EFI_MEMORY_DESCRIPTOR *descriptor = (EFI_MEMORY_DESCRIPTOR *)ptr;
+
+        EFI_PHYSICAL_ADDRESS add = descriptor->PhysicalStart;
+
+        Print(L"Type: %-26s Address: 0x%lx - 0x%lx Pages: 0x%lx\n", MemoryTypeNames[descriptor->Type], descriptor->PhysicalStart, descriptor->PhysicalStart + descriptor->NumberOfPages * 4096, descriptor->NumberOfPages);
+        ptr += map.efi_descriptor_size;
+    }
     free_memmap(&map);
 }
