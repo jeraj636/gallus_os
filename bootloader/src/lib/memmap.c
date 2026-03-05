@@ -1,6 +1,24 @@
 #include "memap.h"
 #include <stdbool.h>
 #include "error.h"
+
+const CHAR16 *MemoryTypeNames[] = {
+    L"EfiReservedMemoryType",
+    L"EfiLoaderCode",
+    L"EfiLoaderData",
+    L"EfiBootServicesCode",
+    L"EfiBootServicesData",
+    L"EfiRuntimeServicesCode",
+    L"EfiRuntimeServicesData",
+    L"EfiConventionalMemory",
+    L"EfiUnusableMemory",
+    L"EfiACPIReclaimMemory",
+    L"EfiACPIMemoryNVS",
+    L"EfiMemoryMappedIO",
+    L"EfiMemoryMappedIOPortSpace",
+    L"EfiPalCode",
+    L"EfiMaxMemoryType"};
+
 void get_memmap(Memmap *map)
 {
     EFI_STATUS status;

@@ -4,8 +4,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "lib/memap.h"
-#include "lib/error.h"
+#include "include/memap.h"
+#include "include/error.h"
 
 void handle_help(EFI_SYSTEM_TABLE *system_table);
 void handle_boot(EFI_SYSTEM_TABLE *system_table);
