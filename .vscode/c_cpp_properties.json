@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "/usr/x86_64-w64-mingw32/include/efi",
                 "/usr/x86_64-w64-mingw32/include/x86_64",
-                "/usr/x86_64-w64-mingw32/include/efi/protocol"
+                "/usr/x86_64-w64-mingw32/include/efi/protocol",
+                "/usr/x86_64-w64-mingw32/include/efi/aarch64"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

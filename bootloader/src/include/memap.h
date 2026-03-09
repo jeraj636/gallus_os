@@ -12,6 +12,7 @@ typedef struct
     UINTN efi_descriptor_size;
 } Memmap;
 
+// returns struct with all info
 void get_memmap(Memmap *map);
 
 void free_memmap(Memmap *map);

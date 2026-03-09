@@ -30,6 +30,19 @@ void get_memmap(Memmap *map)
     UINT32 efi_descriptor_version;
 
     // Getting size of memory map
+    efi_memory_map_size = 0;
+    efi_memory_map = NULL;
+    status = ST->BootServices->GetMemoryMap(&efi_memory_map_size,
+                                            efi_memory_map,
+                                            &efi_map_key,
+                                            &efi_descriptor_size,
+                                            &efi_descriptor_version);
+    efi_memory_map_size += 2 * efi_descriptor_size;
+
+    // Alocating memory for memory map
+    status = ST->BootServices->AllocatePool(EfiLoaderData, efi_memory_map_size, (VOID **)&efi_memory_map);
+    error_handler(status, false);
+
     status = ST->BootServices->GetMemoryMap(&efi_memory_map_size,
                                             efi_memory_map,
                                             &efi_map_key,
@@ -37,16 +50,6 @@ void get_memmap(Memmap *map)
                                             &efi_descriptor_version);
 
     error_handler(status, false);
-    efi_memory_map_size += 2 * efi_descriptor_size; // Setting the size
-    // Alocating memory for memory map
-    status = ST->BootServices->AllocatePool(EfiLoaderData, efi_memory_map_size, (VOID **)&efi_memory_map);
-    status = ST->BootServices->GetMemoryMap(&efi_memory_map_size,
-                                            efi_memory_map,
-                                            &efi_map_key,
-                                            &efi_descriptor_size,
-                                            &efi_descriptor_version);
-
-    error_handler(status, true);
     map->efi_memory_map = efi_memory_map;
     map->efi_memory_map_size = efi_memory_map_size;
     map->efi_descriptor_size = efi_descriptor_size;

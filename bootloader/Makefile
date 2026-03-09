@@ -15,10 +15,11 @@ OVMF_PATH = /usr/share/ovmf/x64/OVMF.4m.fd
 BUILD_DIR = build/tmp
 SRC_DIR = src
 
-FILES = lib/error.c lib/memmap.c boot.c
+FILES = lib/error.c lib/memmap.c lib/command_handlers.c boot.c 
 OBJECTS = $(patsubst %.c, $(BUILD_DIR)/%.o, $(FILES))
 
-all: $(TARGET)
+
+all: clean $(TARGET)
 	@rm -fr $(BUILD_DIR)
 run: all
 	@qemu-system-x86_64 -bios $(OVMF_PATH) -m 1024M -drive format=raw,file=fat:rw:./build/iso -net none

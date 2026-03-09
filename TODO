@@ -1,2 +1,11 @@
 Bootloder:
-  [] neki
+  [] Load info for kernel
+    [] Get memmory address for linear framebuffer
+    [] Get UEFI runtime function pointers 
+    [] Read ACPI tables
+    [] Load GDTR
+    [] Get memory map
+  [] Load kernel
+    [] Locate kernel
+    [] Load kernel
+    [] Put pointer to info into kernel
